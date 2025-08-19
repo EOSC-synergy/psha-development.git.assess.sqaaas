@@ -1,0 +1,68 @@
+config:
+  credentials: []
+  project_repos:
+    github.com/EOSC-synergy/sqaaas-tooling:
+      branch: main
+      repo: https://github.com/EOSC-synergy/sqaaas-tooling
+    gitlab.seismo.ethz.ch/risk-and-hazard/psha-development:
+      branch: master
+      repo: https://gitlab.seismo.ethz.ch/risk-and-hazard/psha-development.git
+environment:
+  JPL_DOCKERFORCEBUILD: enabled
+  JPL_KEEPGOING: enabled
+sqa_criteria:
+  QC.Acc:
+    repos:
+      gitlab.seismo.ethz.ch/risk-and-hazard/psha-development git:
+        commands:
+        - /usr/bin/env sh .sqa/script.snappy-indigo-setter.sh
+        container: qc.acc_slimy-chestnut-quetzal
+  QC.Doc:
+    repos:
+      gitlab.seismo.ethz.ch/risk-and-hazard/psha-development find_doc_files.py:
+        commands:
+        - /usr/bin/env sh .sqa/script.wheezy-orange-rabbit.sh
+        container: qc.doc_boozy-razzmatazz-tarantula
+      gitlab.seismo.ethz.ch/risk-and-hazard/psha-development git:
+        commands:
+        - /usr/bin/env sh .sqa/script.hazy-flax-seal.sh
+        container: qc.doc_cheeky-silver-audemer
+      gitlab.seismo.ethz.ch/risk-and-hazard/psha-development markdownlint:
+        commands:
+        - /usr/bin/env sh .sqa/script.wimpy-green-vulture.sh
+        container: qc.doc_leaky-cyan-hamster
+  QC.Lic:
+    repos:
+      gitlab.seismo.ethz.ch/risk-and-hazard/psha-development licensee:
+        commands:
+        - /usr/bin/env sh .sqa/script.homey-emerald-horse.sh
+        container: qc.lic_squeaky-cobalt-crane
+  QC.Sec:
+    repos:
+      gitlab.seismo.ethz.ch/risk-and-hazard/psha-development bandit:
+        commands:
+        - /usr/bin/env sh .sqa/script.pokey-auburn-dragon.sh
+        container: qc.sec_gimpy-crimson-jellyfish
+  QC.Sty:
+    repos:
+      gitlab.seismo.ethz.ch/risk-and-hazard/psha-development flake8:
+        commands:
+        - /usr/bin/env sh .sqa/script.zippy-cyan-foxhound.sh
+        container: qc.sty_wimpy-buff-binturong
+      gitlab.seismo.ethz.ch/risk-and-hazard/psha-development jsonlint:
+        commands:
+        - /usr/bin/env sh .sqa/script.wiggy-khaki-alligator.sh
+        container: qc.sty_gamy-silver-schnauzer
+  QC.Uni:
+    repos:
+      gitlab.seismo.ethz.ch/risk-and-hazard/psha-development pytest:
+        commands:
+        - /usr/bin/env sh .sqa/script.muggy-mauve-panda.sh
+        container: qc.uni_skimpy-aqua-dogfish
+  QC.Ver:
+    repos:
+      gitlab.seismo.ethz.ch/risk-and-hazard/psha-development get_git_tags.py:
+        commands:
+        - /usr/bin/env sh .sqa/script.snazzy-khaki-lizard.sh
+        container: qc.ver_wiggy-cerulean-birman
+timeout: 5400
